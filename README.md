@@ -1,99 +1,53 @@
-# vue-admin-template
+# 适配基础级数据增删改查模板的基于 Vue 的后台管理模板
 
-English | [简体中文](./README-zh.md)
+本项目根据 vue-admin-template 后台管理模板项目改造而来，适配此前所做的基础级数据增删改查模板，只包含了 Element UI & axios & iconfont & permission control & lint 必要的后台搭建要素。
 
-> A minimal vue admin template with Element UI & axios & iconfont & permission control & lint
+> 🔗 vue-admin-template 后台管理模板
+>
+> https://github.com/PanJiaChen/vue-admin-template
+>
+> 🔗 基础级数据增删改查模板
+>
+> https://github.com/dreature1328/springboot-mybatis-crud-template
 
-**Live demo:** http://panjiachen.github.io/vue-admin-template
-
-
-**The current version is `v4.0+` build on `vue-cli`. If you want to use the old version , you can switch branch to [tag/3.11.0](https://github.com/PanJiaChen/vue-admin-template/tree/tag/3.11.0), it does not rely on `vue-cli`**
-
-<p align="center">
-  <b>SPONSORED BY</b>
-</p>
-<p align="center">
-   <a href="https://finclip.com?from=vue_element" title="FinClip" target="_blank">
-      <img height="200px" src="https://gitee.com/panjiachen/gitee-cdn/raw/master/vue%E8%B5%9E%E5%8A%A9.png" title="FinClip">
-   </a>
-</p>
-
-## Build Setup
+## 安装启动
 
 ```bash
-# clone the project
-git clone https://github.com/PanJiaChen/vue-admin-template.git
-
-# enter the project directory
-cd vue-admin-template
-
-# install dependency
+# 安装依赖
 npm install
 
-# develop
+# 启动服务
 npm run dev
 ```
 
-This will automatically open http://localhost:9528
+## 页面注册
 
-## Build
+于 `src/views` 下增加包含 `index.vue` 的页面目录（若需要）
 
-```bash
-# build for test environment
-npm run build:stage
+并在 `src/router/index.js` 中注册页面路由信息，如下所示
 
-# build for production environment
-npm run build:prod
+```javascript
+  {
+    path: '/data',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'Data',
+      component: () => import('@/views/data/index'),
+      meta: { title: '数据管理', icon: 'el-icon-document' }
+    }]
+  }
 ```
 
-## Advanced
+## API 注册
 
-```bash
-# preview the release environment effect
-npm run preview
+在 `src/main.js` 中赋值，如下所示
 
-# preview the release environment effect + static resource analysis
-npm run preview -- --report
-
-# code format check
-npm run lint
-
-# code format check and auto fix
-npm run lint -- --fix
+```javascript
+import API from '@/api'
+Vue.prototype.$API = API
 ```
 
-Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/guide/essentials/deploy.html) for more information
+其后在 `src/api` 添加 `<api name>.js`（若需要）
 
-## Demo
-
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
-
-## Extra
-
-If you want router permission && generate menu by user roles , you can use this branch [permission-control](https://github.com/PanJiaChen/vue-admin-template/tree/permission-control)
-
-For `typescript` version, you can use [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template) (Credits: [@Armour](https://github.com/Armour))
-
-## Related Project
-
-- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
-
-- [electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin)
-
-- [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template)
-
-- [awesome-project](https://github.com/PanJiaChen/vue-element-admin/issues/2312)
-
-## Browsers support
-
-Modern browsers and Internet Explorer 10+.
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
-
-## License
-
-[MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
-
-Copyright (c) 2017-present PanJiaChen
+并在 `data.js` 中填写 API 端口

@@ -30,6 +30,9 @@ service.interceptors.request.use(
   }
 )
 
+// 成功响应的编码
+const SUCCESS_CODES = [200, 20000, 'SUCCESS']
+
 // response interceptor
 service.interceptors.response.use(
   /**
@@ -42,11 +45,12 @@ service.interceptors.response.use(
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
+  
   response => {
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    if (!SUCCESS_CODES.includes(res.code)) {
       Message({
         message: res.message || 'Error',
         type: 'error',
